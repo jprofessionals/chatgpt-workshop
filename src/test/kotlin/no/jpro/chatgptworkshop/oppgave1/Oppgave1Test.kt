@@ -11,11 +11,12 @@ class Oppgave1Test {
         val multiple1 = 3
         val multiple2 = 5
         val max = 1000
+        val expected = 233168
 
         // when
         val actual = Oppgave1().sumOfMultiples(multiple1, multiple2, max)
 
         // then
-        assertThat(actual).isEqualTo(233168)
+        assertThat(actual).isEqualTo(expected)
     }
 }

@@ -1,36 +1,35 @@
 package no.jpro.chatgptworkshop.utils
 
-class ChatGPTClient {
-    val apiKey: String
-    val openAI: OpenAI
-    init {
-        val properties = Properties()
-        this::class.java.getResourceAsStream("/secret.properties").use { inputStream ->
-            properties.load(inputStream)
-        }
-        apiKey = properties.getProperty("apiKey")
-        openAI = OpenAI(apiKey)
-    }
+import com.aallam.openai.api.BetaOpenAI
+import com.aallam.openai.api.chat.ChatCompletion
+import com.aallam.openai.api.chat.ChatCompletionRequest
+import com.aallam.openai.api.chat.ChatMessage
+import com.aallam.openai.api.chat.ChatRole
+import com.aallam.openai.api.model.ModelId
+import com.aallam.openai.client.OpenAI
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+import java.util.*
+
+@Service
+class ChatGPTClient(
+    @Value("\${apikey}") private val apikey: String
+) {
+    private val openAI: OpenAI = OpenAI(apikey)
 
     @OptIn(BetaOpenAI::class)
-    suspend fun chatGpt() {
-        // val models = openAI.models()
+    suspend fun chat(message: String): String? {
         val chatComRequest = ChatCompletionRequest(
             model = ModelId("gpt-3.5-turbo-0301"),
             messages = listOf(
                 ChatMessage(
                     role = ChatRole.User,
-                    content = "Hello, are you a cool chatbot?"
+                    content = message
                 )
             )
         )
         val completion: ChatCompletion = openAI.chatCompletion(chatComRequest)
 
-        println("**************************** Important message follows ****************************")
-        println()
-        println(completion.choices.first().message?.content)
-
-        println()
-        println("**************************** Important message has concluded ****************************")
+        return completion.choices.first().message?.content
     }
 }

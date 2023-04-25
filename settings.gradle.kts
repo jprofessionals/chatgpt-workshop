@@ -1,1 +1,1 @@
-rootProject.name = "chatgpt-grade-2"
+rootProject.name = "chatgpt-workshop"

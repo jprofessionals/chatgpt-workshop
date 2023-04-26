@@ -2,6 +2,7 @@
 
 Bruk ChatGPT til å finne ut hvilke farger som er nevnt i følgende eventyr.
 Be ChatGPT om å gi deg en funksjon i Kotlin som returnerer en liste av fargene.
+Her er det lov å returnere fargene direkte uten å håndtere eventyret programmatisk.
 
 Det var en gang et selskap som het JProfessionals, og det var kjent for å ha de mest talentfulle ansatte i hele landet. En dag ble de satt til å løse et mystisk problem for kongen av landet. Han hadde nemlig mistet alle sine kongelige smykker i forskjellige farger, og han visste ikke hvor de hadde tatt veien.
 

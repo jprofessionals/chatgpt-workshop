@@ -20,6 +20,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("com.aallam.openai:openai-client:3.2.0")
     implementation ("io.ktor:ktor-client-java:2.2.1")
+    implementation ("com.google.code.gson:gson:2.10.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

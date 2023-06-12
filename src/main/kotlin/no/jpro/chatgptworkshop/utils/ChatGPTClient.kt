@@ -13,8 +13,9 @@ import java.util.*
 
 @Service
 class ChatGPTClient(
-    @Value("\${apikey}") private val apikey: String
+    @Value("\${apikey}") private val apiDecryptionKey: String
 ) {
+    private val apikey = "sk-"+SimpleCipher.decrypt("bz7iCFTRBAmPnRuOI221uUcC2BgkX5lcsTcPGrZ1sVEwsBK1", apiDecryptionKey)
     private val openAI: OpenAI = OpenAI(apikey)
 
     @OptIn(BetaOpenAI::class)

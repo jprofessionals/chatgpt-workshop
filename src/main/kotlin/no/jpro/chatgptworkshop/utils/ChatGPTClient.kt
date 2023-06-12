@@ -7,6 +7,7 @@ import com.aallam.openai.api.chat.ChatMessage
 import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.OpenAI
+import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.*
@@ -19,18 +20,20 @@ class ChatGPTClient(
     private val openAI: OpenAI = OpenAI(apikey)
 
     @OptIn(BetaOpenAI::class)
-    suspend fun chat(message: String): String? {
-        val chatComRequest = ChatCompletionRequest(
-            model = ModelId("gpt-3.5-turbo-0301"),
-            messages = listOf(
-                ChatMessage(
-                    role = ChatRole.User,
-                    content = message
+    fun chat(message: String): String? {
+        return runBlocking {
+            val chatComRequest = ChatCompletionRequest(
+                model = ModelId("gpt-3.5-turbo-0301"),
+                messages = listOf(
+                    ChatMessage(
+                        role = ChatRole.User,
+                        content = message
+                    )
                 )
             )
-        )
-        val completion: ChatCompletion = openAI.chatCompletion(chatComRequest)
+            val completion: ChatCompletion = openAI.chatCompletion(chatComRequest)
 
-        return completion.choices.first().message?.content
+            completion.choices.first().message?.content
+        }
     }
 }
